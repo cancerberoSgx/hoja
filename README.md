@@ -2,11 +2,12 @@
 
 ## WIP
 
-  * Minimal JavaScript testing framework designed to run different/rare JavaScript environments, such as
-    rhino,  V7,old browsers.
+  * Minimal JavaScript testing framework designed to run rare JavaScript engines, with declarative describptions and assertions syntax but imperative execution flow. 
 
-  * Supports safe synchronous test run mode.  
-     * It's physically divided on two implementations, synchronous and asynchronous,  on purpose since it was
+  * The main motivation was the need to run specs on different / limited JavaScript engines  such as rhino, V7,o ld browsers.
+
+  * Supports synchronous text execution.  
+     * It's physically divided on two implementations, synchronous and asynchronous, on purpose since it was
        used on non asynchronous - non hackeable - JavaScript environments. 
 
   * The assertion syntax is similar to jasmine / mocha based on `describe()`, `expect()`, `it()`..
