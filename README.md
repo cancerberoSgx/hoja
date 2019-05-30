@@ -1,13 +1,43 @@
-node.js and browser JavaScript library with easy to use API to load a TypeScript projects from git repositories, ready to be used by Compiler API, with full LanguageService and TypeChecker, read/write support.
+  * Micro TDD library that runs on several/rare JavaScript engines, including rhino,  V7, and Old Internet Explorer. 
 
+  * It's physically divided on two implementations, synchronous and asynchronous,  on purpose since it was used on non asynchronous - non hackeable - JavaScript environments. 
+ 
+  * The assertion syntax is similar to jasmine / mocha based on `describe()`, `expect()`, `it()`..
 
-## Motivation
+  * But the execution flow is different, you explicitly stop / start groups of specs imperatively.
 
- * I have several apps that consume a TypeScript project to perform manipulation/queries on the AST files and I need to have a easy / standard way of representing and acess a TypeScript project in the browser too, with the same API I would do in node.js.
+  * aims to be as portable, simple and fast.
 
-## Initial Implementation
+  * basic support for reports but customizable. The objective is to be agnostics on the report output  mediums so we limit to plain text. 
 
-  * load a git project in browser using  https://isomorphic-git.org/docs/en/fs 
-  * implement ts-morph or TypeScript FileSystemHost based on FS implementation used for previous point (BrowserFs, lightning-fs)
-  * add missing Type libraries to the project, mandatory typescript/libs.d.ts . Since we cannot perform npm install we need to do it by hand.
-  * after this we should be able to create a ts-morph project that resolve all types and have correct TypeCheking.
+  * for the server and the browser. 
+ 
+  * other scenario that shows to be useful is while bundling scripts to be runnel individually bu puppeteer os similar headless, in which case you need to be as fast as possible and a text report to stdout is enough.
+
+# Usage
+
+```
+npm install -D canto
+```
+
+# API
+
+ * The flow is driven, imperatively, via the object `SpecRunner`. You declare your tests, and execute them using it:
+
+```ts
+
+import {SpecRunner, describe, it, expect} from 'canto'
+SpecRunner.getInstance().reset()
+describe('Fruit', () => {
+    it('can be eaten', () => {
+        expect([1, 2, 3]).toContain(2)
+    })
+    it('can walk', () => {
+        expect('asdas').toContain('as')
+        expect(Math.random() > 2).toBe(true)
+    })
+})
+const {results} = const results = SpecRunner.getInstance().run()
+```
+
+```Ahead on the file, or in ahother one you declare another group of tests by, again, resetting the object and run it.

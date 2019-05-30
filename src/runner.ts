@@ -3,7 +3,6 @@ import { ExpectResult } from "./expect"
 import { It } from "./it"
 import { printError } from './textReporter'
 import { printNativeError } from './util'
-// import { printNativeError } from '../misc/misc';
 
 function now() { // not using now() from "../misc/dateUtil"; since we want to run spec specs with node
   return Date.now()
@@ -103,4 +102,12 @@ export interface SpecRunnerRunConfig {
   random?: boolean
   breakOnFirstError?: boolean
   reset?: boolean
+}
+
+
+export function reset() {
+  return SpecRunner.getInstance().reset()
+}
+export function run() {
+  return SpecRunner.getInstance().run()
 }

@@ -1,8 +1,9 @@
 import { describe as ssDescribe, expect as ssExpect, fail as ssFail, it as ssIt, SpecRunner, skip as ssSkip } from '../src';
+import { reset, run } from '../src/runner';
 
 describe('spec', () => {
     it('basic', () => {
-        SpecRunner.getInstance().reset()
+        reset()
         ssDescribe('Fruit', () => {
             ssIt('can be eaten', () => {
                 ssExpect([1, 2, 3]).toContain(2)
@@ -14,7 +15,7 @@ describe('spec', () => {
             })
 
         })
-        const results = SpecRunner.getInstance().run().results
+        const results = run().results
         expect(results.length).toBe(1) // a single root describe
         expect(results[0].specs.length).toBe(0) // no internal describes
 
@@ -37,7 +38,7 @@ describe('spec', () => {
     describe('fail', () => {
         let flag = 1, flag2 = 1
         function test() {
-            SpecRunner.getInstance().reset()
+            reset()
             ssDescribe('d1', () => {
                 ssIt('must fail', () => {
                     ssExpect(1).toBe(1)
@@ -50,7 +51,7 @@ describe('spec', () => {
                     flag2 = 2
                 })
             })
-            return SpecRunner.getInstance().run().results
+            return run().results
         }
         it('should make the it fail and not interfere with previous ones', () => {
             const results = test()
@@ -76,7 +77,7 @@ describe('spec', () => {
     describe('skip', () => {
         let flag = 1, flag2 = 1
         function test() {
-            SpecRunner.getInstance().reset()
+            reset()
             ssDescribe('d1', () => {
                 ssIt('must fail', () => {
                     ssExpect(1).toBe(1)
@@ -89,7 +90,7 @@ describe('spec', () => {
                     flag2 = 2
                 })
             })
-            return SpecRunner.getInstance().run().results
+            return run().results
         }
         it('should make the it fail and not interfere with previous ones', () => {
             const results = test()
