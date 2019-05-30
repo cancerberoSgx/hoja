@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "test": "jasmine",
+    "test": "ts-node node_modules/jasmine/bin/jasmine",
     "clean": "rm -rf dist docs",
     "build-watch": "watch 'npm run build' src",
     "test-debug": "node --inspect-brk node_modules/ts-node/dist/bin node_modules/jasmine/bin/jasmine.js",

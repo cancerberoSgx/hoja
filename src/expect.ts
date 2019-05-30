@@ -1,6 +1,6 @@
-import { SpecRunner } from "./runner";
-import { SpecError } from './describe';
-import { ValueOf, ValueOfNumberKey } from './util';
+import { SpecError } from './describe'
+import { SpecRunner } from "./runner"
+import { ValueOfNumberKey } from './util'
 
 export function expect<R>(real: R): Expect<R> {
   return new ExpectImpl<R>(real)
@@ -17,7 +17,7 @@ class ExpectImpl<R> implements Expect<R>{
   constructor(protected real: R) {
 
   }
- 
+
   /** to be identical (===) */
   toBe(value: R) {
 
@@ -43,9 +43,9 @@ class ExpectImpl<R> implements Expect<R>{
   }
 
   /** array or string to contain (.indexOf()) */
-  toContain<J extends ValueOfNumberKey<R, 0>>(value: J | string, _not:boolean=false): void {
+  toContain<J extends ValueOfNumberKey<R, 0>>(value: J | string, _not: boolean = false): void {
 
-    if (!Array.isArray(this.real) && typeof this.real !== 'string') { 
+    if (!Array.isArray(this.real) && typeof this.real !== 'string') {
       throw new Error('toContain must be called with a array or string value and it was ' + (typeof this.real) + ' - ' + this.real)
     }
     const message = `Expected ${Array.isArray(this.real) ? `[${this.real.join(', ')}]` : `"${this.real}"`} to contain "${value}"`
@@ -53,19 +53,19 @@ class ExpectImpl<R> implements Expect<R>{
     if ((this.real as any).indexOf(value) === -1) {
       result = {
         message,
-        type: _not?'pass' : 'fail'
+        type: _not ? 'pass' : 'fail'
       }
     }
     else {
       result = {
-        message, 
-        type: _not ? 'fail':'pass' 
+        message,
+        type: _not ? 'fail' : 'pass'
       }
     }
     addToCurrentIt(result)
   }
-   /** array or string to contain (.indexOf()) */
-   notToContain<J extends ValueOfNumberKey<R, 0>>(value: J | string): void {
+  /** array or string to contain (.indexOf()) */
+  notToContain<J extends ValueOfNumberKey<R, 0>>(value: J | string): void {
     this.toContain(value, true)
   }
 
@@ -75,30 +75,32 @@ class ExpectImpl<R> implements Expect<R>{
 
 
 export function fail(label?: string) {
-  const e = new Error('fail '+label)
-  const error = {...e,
+  const e = new Error('fail ' + label)
+  const error = {    
+...e,
     nativeException: e as any,
-    isFail:true,
-    failLabel: label 
+    isFail: true,
+    failLabel: label
   }
   addToCurrentIt({
     message: 'fail() called - ' + label,
-    type: 'fail', 
+    type: 'fail',
     error
   })
   throw error
 }
 
 export function skip(label?: string): any {
-  const e = new Error('fail '+label)
-  const error = {...e,
+  const e = new Error('fail ' + label)
+  const error = {    
+...e,
     nativeException: e as any,
-    isSkip:true,
-    skipLabel: label 
+    isSkip: true,
+    skipLabel: label
   }
   addToCurrentIt({
     message: 'skip() called - ' + label,
-    type: 'skip', 
+    type: 'skip',
     error
   })
   throw error

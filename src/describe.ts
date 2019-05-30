@@ -1,5 +1,5 @@
-import { SpecRunner } from "./runner";
-import { It } from "./it";
+import { It } from "./it"
+import { SpecRunner } from "./runner"
 
 export interface SpecBaseWithoutParent {
   parent?: Describe
@@ -38,15 +38,15 @@ function createDescribe(name: string, fn: DescribeFn, type: SpecType) {
   }
   SpecRunner.getInstance()._currentDescribe = d
   // try {
-    d.fn()
+  d.fn()
   // } catch (err) {
-    // log('Exception catch in describe fn() ' + d.name);
-    // TODO: support break on first error
-    // d.error = {
-    //   nativeException: err,
-    //   isFail: err.isFail,
-    //   label: err.failLabel
-    // }
+  // log('Exception catch in describe fn() ' + d.name);
+  // TODO: support break on first error
+  // d.error = {
+  //   nativeException: err,
+  //   isFail: err.isFail,
+  //   label: err.failLabel
+  // }
   // }
   SpecRunner.getInstance()._currentDescribe = parent
 }

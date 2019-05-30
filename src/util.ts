@@ -1,7 +1,8 @@
 
 /** returns the type of the value with key K in the Mapped type T. Example: `type _string = ValueOf<A, 'a'>` . */
-export type ValueOf<T extends { [k: string]: any }, K extends string> = T[K];
-export type ValueOfNumberKey<T extends { [k: number]: any }, K extends number> = T[K];
+export type ValueOf<T extends { [k: string]: any }, K extends string> = T[K]
+/** same as [[ValueOf]] but for numbers. */
+export type ValueOfNumberKey<T extends { [k: number]: any }, K extends number> = T[K]
 
 
 export function printMs(
@@ -18,7 +19,7 @@ export function printMs(
   const milliseconds = config.ms && Math.floor(ms % 1000 || ms)
   return `${minutes ? `${minutes} minutes ` : ''}${seconds ? `${seconds} seconds ` : ''}${
     milliseconds ? `${milliseconds} milliseconds ` : ''
-  }`
+    }`
 }
 
 export function repeat(n: number, s: string): string {
@@ -30,7 +31,7 @@ export function indent(i: number = 1, tabSize = 2): string {
 }
 export function array<T = number>(n: number, sample?: T): T[] {
   const a: (T | number)[] = []
-  for (let i = 0; i < n; i++) {
+  for (let i = 0;i < n;i++) {
     a.push(typeof sample === 'undefined' ? i : sample)
   }
   return a as T[]
@@ -46,9 +47,9 @@ export function array<T = number>(n: number, sample?: T): T[] {
 //   return `${(error.stack && Array.isArray(error.stack)) ? error.stack.map(s => repeat(2, ' ') + s).join('\n') : error.stack}`
 // }
 
-const log = require('log')
+const log = require('ololog')
 
-export function printNativeError(e: Error){
-  log.bright.red.error.noLocate 
+export function printNativeError(e: Error) {
+  log.bright.red.error.noLocate
 }
 

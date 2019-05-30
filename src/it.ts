@@ -1,6 +1,6 @@
-import { SpecRunner } from "./runner";
-import { SpecBaseWithoutParent, SpecType, Describe, SpecError } from "./describe";
-import { ExpectResult } from "./expect";
+import { SpecBaseWithoutParent, SpecError, SpecType } from "./describe"
+import { ExpectResult } from "./expect"
+import { SpecRunner } from "./runner"
 
 export interface It extends SpecBaseWithoutParent {
   fn: ItFn
@@ -10,11 +10,11 @@ export interface It extends SpecBaseWithoutParent {
 
 export type ItFn = () => void
 
-function create(name: string, fn: ItFn, type: SpecType){
+function create(name: string, fn: ItFn, type: SpecType) {
   const parent = SpecRunner.getInstance()._currentDescribe
-  if(!parent){throw new Error('it() must be used inside describe(): '+name)}
+  if (!parent) { throw new Error('it() must be used inside describe(): ' + name) }
   // if(parent.its)
-  const i: It = {parent, fn, name, type ,results: []}
+  const i: It = { parent, fn, name, type, results: [] }
   parent.its.push(i)
 }
 

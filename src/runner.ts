@@ -1,8 +1,8 @@
-import { Describe, SpecType, SpecError } from "./describe";
-import { It } from "./it";
-import { ExpectResult } from "./expect";
-import { printError } from './textReporter';
-import { printNativeError } from './util';
+import { Describe, SpecError, SpecType } from "./describe"
+import { ExpectResult } from "./expect"
+import { It } from "./it"
+import { printError } from './textReporter'
+import { printNativeError } from './util'
 // import { printNativeError } from '../misc/misc';
 
 function now() { // not using now() from "../misc/dateUtil"; since we want to run spec specs with node
@@ -37,7 +37,7 @@ export class SpecRunner {
       }
       catch (error) {
         console.log(`Exception while evaluating describe() and its() of the #${index} given specs function:` + error)
-        console.log((this._currentDescribe && this._currentDescribe.name) + ' ' + (this._currentIt && this._currentIt.name));
+        console.log((this._currentDescribe && this._currentDescribe.name) + ' ' + (this._currentIt && this._currentIt.name))
         console.log(printNativeError(error))
       }
     })
@@ -52,7 +52,7 @@ export class SpecRunner {
         catch (err) {
           const error = { ...err, nativeException: err }
           i.error = error
-          console.log('Exception catch in it ' + i.name);
+          console.log('Exception catch in it ' + i.name)
           if (config.breakOnFirstError) {
             console.log(printError(error))
             throw error
