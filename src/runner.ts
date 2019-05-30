@@ -2,13 +2,46 @@ import { Describe, SpecError, SpecType } from "./describe"
 import { ExpectResult } from "./expect"
 import { It } from "./it"
 import { printError } from './textReporter'
-import { printNativeError } from './util'
+import { now, printNativeError } from './util'
 
-function now() { // not using now() from "../misc/dateUtil"; since we want to run spec specs with node
-  return Date.now()
+/** [[run]] configuration */
+export interface SpecRunnerRunConfig {
+  specs?: (() => void)[]
+  random?: boolean
+  breakOnFirstError?: boolean
+  reset?: boolean
 }
 
-/** user needs to instantiate this, add their describe functions and execute run() in order to run the tests adn obtain the results */
+export interface ItResult {
+  name: string
+  type: SpecType
+  /** expect() results in this execution, */
+  results: ExpectResult[]
+  error?: SpecError
+}
+
+export interface SpecRunnerResult {
+  results: DescribeResult[]
+  totalTime: number
+}
+
+export interface DescribeResult {
+  name: string
+  specs: DescribeResult[]
+  /** Results per it() call expression per describe() call expressions..*/
+  results: ItResult[]
+}
+
+export function reset() {
+  return SpecRunner.getInstance().reset()
+}
+
+export function run(config: SpecRunnerRunConfig = {}) {
+  return SpecRunner.getInstance().run()
+}
+
+
+/** user needs to instantiate this, add their describe functions and execute `run()` in order to run the tests adn obtain the results */
 export class SpecRunner {
 
   private static instance = new SpecRunner()
@@ -26,7 +59,7 @@ export class SpecRunner {
     this.describes = []
   }
 
-  run(config: SpecRunnerRunConfig = {}): SpecRunnerResult {
+  run(config: SpecRunnerRunConfig = {}) {
     if (config.reset) {
       SpecRunner.getInstance().reset()
     }
@@ -77,37 +110,3 @@ export class SpecRunner {
 
 }
 
-export interface SpecRunnerResult {
-  results: DescribeResult[]
-  totalTime: number
-}
-export interface DescribeResult {
-  name: string
-  specs: DescribeResult[]
-  /** internal it() results*/
-  results: ItResult[]
-}
-
-export interface ItResult {
-  name: string
-  type: SpecType
-  /** internal expect() results */
-  results: ExpectResult[]
-  error?: SpecError
-}
-
-export interface SpecRunnerRunConfig {
-  specs?: (() => void)[]
-  // log: (s:string)=>any
-  random?: boolean
-  breakOnFirstError?: boolean
-  reset?: boolean
-}
-
-
-export function reset() {
-  return SpecRunner.getInstance().reset()
-}
-export function run() {
-  return SpecRunner.getInstance().run()
-}

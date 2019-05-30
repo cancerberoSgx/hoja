@@ -13,6 +13,7 @@ export interface TextReportConfig extends ReportConfig {
   format?: 'short' | 'detailed'
   tabSize?: number
 }
+
 export class TextReporter implements Reporter<TextReportConfig, TextReportResult> {
   config!: TextReportConfig;
   render(config: TextReportConfig): TextReportResult {
@@ -52,9 +53,6 @@ Finished in ${printMs(this.config.result.totalTime, { seconds: true, ms: true })
     }
   }
 
-  //   printError(i: It, d: Describe): string {
-  //     
-  //       }
   renderDescribe(d: DescribeResult, indentLevel = 0): string {
     // if (this.config.format === 'detailed') {
     //   return 'detailed format not implemented'
@@ -78,7 +76,6 @@ ${this.indent(indentLevel)}${d.name}: ${failIts.map(i => this.renderIt(i, indent
     return `
 ${this.indent(indentLevel)}${i.name}: ${i.results.filter(r => this.config.format === 'detailed' || r.type === 'fail').map((r, index) => this.renderExpect(r, index, indentLevel + 1))}`
   }
-  // }
 
   renderExpect(r: ExpectResult, index: number, indentLevel: number): any {
     return `

@@ -13,7 +13,6 @@ export type ItFn = () => void
 function create(name: string, fn: ItFn, type: SpecType) {
   const parent = SpecRunner.getInstance()._currentDescribe
   if (!parent) { throw new Error('it() must be used inside describe(): ' + name) }
-  // if(parent.its)
   const i: It = { parent, fn, name, type, results: [] }
   parent.its.push(i)
 }

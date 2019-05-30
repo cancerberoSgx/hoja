@@ -1,9 +1,9 @@
+const log = require('ololog')
 
 /** returns the type of the value with key K in the Mapped type T. Example: `type _string = ValueOf<A, 'a'>` . */
 export type ValueOf<T extends { [k: string]: any }, K extends string> = T[K]
 /** same as [[ValueOf]] but for numbers. */
 export type ValueOfNumberKey<T extends { [k: number]: any }, K extends number> = T[K]
-
 
 export function printMs(
   ms: number,
@@ -29,6 +29,7 @@ export function repeat(n: number, s: string): string {
 export function indent(i: number = 1, tabSize = 2): string {
   return repeat(i * tabSize, ' ')
 }
+
 export function array<T = number>(n: number, sample?: T): T[] {
   const a: (T | number)[] = []
   for (let i = 0;i < n;i++) {
@@ -36,18 +37,10 @@ export function array<T = number>(n: number, sample?: T): T[] {
   }
   return a as T[]
 }
-// export function pr(error: Error) {
-//   return `${error && error.type}, ${error && error.name}
-// Cause: ${error && error.message}
-// Stack Trace:
-// ${printNativeErrorStack(error)}
-// `}
 
-// export function printNativeErrorStack(error: Error) {
-//   return `${(error.stack && Array.isArray(error.stack)) ? error.stack.map(s => repeat(2, ' ') + s).join('\n') : error.stack}`
-// }
-
-const log = require('ololog')
+export function now() { // not using now() from "../misc/dateUtil"; since we want to run spec specs with node
+  return Date.now()
+}
 
 export function printNativeError(e: Error) {
   log.bright.red.error.noLocate
