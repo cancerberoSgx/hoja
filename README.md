@@ -2,11 +2,11 @@
 
 ## WIP
 
-  * Minimal JavaScript testing framework designed to run rare JavaScript engines, with declarative describptions and assertions syntax but imperative execution flow. 
+  * Minimal testing framework designed with declarative syntax for test descriptions and an imperative syntax for execution flow. 
 
   * The main motivation was the need to run specs on different / limited JavaScript engines  such as rhino, V7,o ld browsers.
 
-  * Supports synchronous text execution.  
+  * Supports synchronous text execution.:
      * It's physically divided on two implementations, synchronous and asynchronous, on purpose since it was
        used on non asynchronous - non hackeable - JavaScript environments. 
 
@@ -36,7 +36,7 @@ npm install -D canto
    using it:
 
 ```ts
-import { SpecRunner, describe, it, expect, skip, fai } from 'parra'
+import { SpecRunner, describe, it, expect, skip, fai } from 'hoja'
 
 reset()
 describe('Fruit', () => {
@@ -69,8 +69,6 @@ describe('d1', () => {
 })
 const {results, timings} = run({random: true, breakOnFirstError: true})       
                              // this time run() is configured  and returns timing data.
-
-
 ```
 
  * [spec/specSpec.ts](spec/specSpec.ts)
@@ -89,4 +87,5 @@ Returns a result object
 * fit(), fdescribe()
 * make describes optional and introduce test() like ava / jest
 * easy framework to run the tests and descendt report with jsdom and puppetter.
-* should we invest on optimize performance (parrallel)
+* should we invest on optimize performance (hojallel)
+* Issue : Reporter should be named "Renderer" and there should be another type "Reporter"
